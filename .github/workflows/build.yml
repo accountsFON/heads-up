@@ -1,0 +1,32 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Build universal app
+        run: sh scripts/build.sh
+      - name: Check the scripts
+        run: |
+          sh -n scripts/install.sh && sh -n scripts/uninstall.sh
+          python3 -m py_compile Resources/heads-up-notify.py
+      - name: Install and uninstall into a temporary HOME
+        run: |
+          export HOME="$(mktemp -d)"
+          sh scripts/install.sh --local --test
+          sh scripts/install.sh --local --test
+          test "$(grep -c heads-up-notify.py "$HOME/.claude/settings.json")" = 5
+          sh scripts/uninstall.sh --test
+          if grep -q heads-up-notify.py "$HOME/.claude/settings.json"; then exit 1; fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: HeadsUp
+          path: dist/HeadsUp.zip
