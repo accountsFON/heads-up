@@ -23,7 +23,7 @@ Built for anyone who runs a few Claude Code sessions at once, works in other app
 | **Claude Code** | Claude Code sessions in the Claude desktop app, and the `claude` CLI in any terminal |
 | **python3** | Runs the hook. macOS gets it from the Xcode Command Line Tools (`xcode-select --install`). A Homebrew or python.org `python3` works too |
 | **Account** | Any user account. Everything installs inside your home folder, so there's no admin password |
-| **Tested on** | MacBook Pro 16-inch, M4 Max, macOS 26.5.1, Claude Code 2.1.224 (October 2026) |
+| **Tested on** | MacBook Pro 16-inch, M4 Max, macOS 26.5.1, Claude Code 2.1.224 (October 2026): the build, install, update, uninstall, and every hook decision. The notifier is the same code that runs the author's own daily setup |
 
 A few things to know before you install:
 
